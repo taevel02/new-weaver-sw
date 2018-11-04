@@ -18,7 +18,7 @@ export default {
 @import '../../assets/scss/card.scss';
 
 .box-card {
-  width: 1280px;
+  width: 1210px;
   height: 480px;
 }
 </style>

@@ -4,7 +4,7 @@
       <div slot="header" class="clearfix">
         <span class="title">Information</span>
       </div>
-      <div class="text item">
+      <div class="text-container item">
         <div class="location">
           <div class="subtitle">Location : </div>
           <div class="name">The Prcific ocean</div>
@@ -30,8 +30,9 @@ export default {
 
 .box-card {
   width: 720px;
+  margin-right: 18px;
 
-  .text {
+  .text-container {
     display: flex;
   }
 

@@ -13,6 +13,15 @@ Vue.use(ElementUI, { locate })
 
 Vue.config.productionTip = false
 
+let EventBus = new Vue()
+Object.defineProperties(Vue.prototype, {
+  $eventBus: {
+    get: function () {
+      return EventBus
+    }
+  }
+})
+
 new Vue({
   router,
   render: h => h(App)

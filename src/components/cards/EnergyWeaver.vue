@@ -23,6 +23,7 @@ export default {
 @import '../../assets/scss/card.scss';
 
 .box-card {
+  width: 470px;
   text-align: center;
 }
 </style>

@@ -23,6 +23,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Spoqa Han Sans'
+  font-family: 'Spoqa Han Sans';
+  /* font-size: 1rem; */
 }
 </style>
