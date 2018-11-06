@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import VNavbar from '../components/Navbar'
-import VTopbar from '../components/cards/Topbar'
-import InformationWeaver from '../components/cards/InformationWeaver'
-import EnergyWeaver from '../components/cards/EnergyWeaver'
-import LocationWeaver from '../components/cards/LocationWeaver'
+import VNavbar from '@/components/Navbar'
+import VTopbar from '@/components/cards/Topbar'
+import InformationWeaver from '@/components/cards/InformationWeaver'
+import EnergyWeaver from '@/components/cards/EnergyWeaver'
+import LocationWeaver from '@/components/cards/LocationWeaver'
 
 export default {
   name: 'dashboard',

@@ -19,7 +19,7 @@
             </template>
             <el-menu-item-group>
               <el-menu-item
-                v-for="weaver in weavers"
+                v-for="weaver in weaversRef"
                 :key="weaver"
                 @click="sender(weaver)">
                 {{ weaver.name }}
@@ -98,7 +98,7 @@
       width="40%">
       <div
         class="weaverList"
-        v-for="weaver in weavers"
+        v-for="weaver in weaversRef"
         :key="weaver">
         <span class="list-item">{{ weaver.name }}</span>
         &nbsp;<i class="fa fa-trash list-item-icon" @click="removeWeaverHandler(weaver)"></i>
@@ -126,26 +126,17 @@
 <script>
 import toastr from 'toastr'
 import 'toastr/build/toastr.css'
-import firebase from 'firebase'
-
-let config = {
-  apiKey: 'AIzaSyCet5FFchYI2P56oJMro7saNkkycH_YXLk',
-  authDomain: 'library-new-weaver.firebaseapp.com',
-  databaseURL: 'https://library-new-weaver.firebaseio.com',
-  projectId: 'library-new-weaver',
-  storageBucket: 'library-new-weaver.appspot.com',
-  messagingSenderId: '578866059464'
-}
-
-let app = firebase.initializeApp(config)
-let db = app.database()
-
-let weaversRef = db.ref('weavers')
+import { db } from '@/api/firebase.js'
 
 export default {
   name: 'navbar',
   firebase: {
-    weavers: weaversRef
+    weaversRef: {
+      source: db.ref('weavers'),
+      cancelCallback (e) {
+        console.error(e)
+      }
+    }
   },
   data () {
     return {
@@ -154,24 +145,19 @@ export default {
       // settingWeaverDialog: false,
 
       newWeaver: {
+        camPose: 0,
         coordinates: '',
         energy: '',
         isCapsule: false,
         isCapsuleCycle: 500,
         isStatus: false,
         location: '',
+        motor_L: false,
+        motor_R: false,
         name: ''
       },
 
-      nowWeaver: {
-        coordinates: '',
-        energy: '',
-        isCapsule: false,
-        isCapsuleCycle: 500,
-        isStatus: false,
-        location: '',
-        name: ''
-      }
+      nowWeaver: ''
     }
   },
   created () {
@@ -179,7 +165,7 @@ export default {
   },
   methods: {
     sender (weaver) {
-      this.nowWeaver = weaver
+      this.nowWeaver = weaver['.key']
       this.$eventBus.$emit('nowWeaver', this.nowWeaver)
     },
     onReceive (input) {
@@ -192,7 +178,7 @@ export default {
       this.newWeaver.name == '') {
         toastr.warning(`There are items you didn't enter`)
       } else {
-        weaversRef.push(this.newWeaver)
+        this.$firebaseRefs.weaversRef.push(this.newWeaver)
         this.newWeaver.coordinates = ''
         this.newWeaver.energy = ''
         this.newWeaver.location = ''
@@ -206,7 +192,7 @@ export default {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel'
       }).then(() => {
-        weaversRef.child(weaver['.key']).remove()
+        this.$firebaseRefs.weaversRef.child(weaver['.key']).remove()
         toastr.success('Weaver removed successfully.')
       }).catch(() => {
         toastr.info('Remove canceled.')

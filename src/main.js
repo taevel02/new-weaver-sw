@@ -1,23 +1,25 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
 
-import 'normalize.css'
-import ElementUI from 'element-ui'
-import locate from 'element-ui/lib/locale/lang/ko'
-import 'element-theme-chalk'
-import VueFire from 'vuefire'
+import 'normalize.css';
+import ElementUI from 'element-ui';
+import locate from 'element-ui/lib/locale/lang/ko';
+import 'element-theme-chalk';
+import VueFire from 'vuefire';
 
-Vue.use(VueFire)
-Vue.use(ElementUI, { locate })
+import './api/firebase';
 
-Vue.config.productionTip = false
+Vue.use(VueFire);
+Vue.use(ElementUI, { locate });
 
-let EventBus = new Vue()
+Vue.config.productionTip = false;
+
+let EventBus = new Vue();
 Object.defineProperties(Vue.prototype, {
   $eventBus: {
     get: function () {
-      return EventBus
+      return EventBus;
     }
   }
 })
@@ -25,4 +27,4 @@ Object.defineProperties(Vue.prototype, {
 new Vue({
   router,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

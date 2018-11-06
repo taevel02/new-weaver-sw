@@ -6,7 +6,7 @@
       </div>
       <div class="text item">
         <div class="radialbar">
-          <el-progress type="circle" :percentage="80" stroke-width="20"></el-progress>
+          <el-progress type="circle" :percentage="weaverEnergy" stroke-width="20"></el-progress>
         </div>
       </div>
     </el-card>
@@ -14,8 +14,30 @@
 </template>
 
 <script>
+import { db } from '@/api/firebase.js'
+
 export default {
-  name: 'energy'
+  name: 'energy',
+  data () {
+    return {
+      weaverKey: '',
+      weaverEnergy: 0
+    }
+  },
+  created () {
+    this.$eventBus.$on('nowWeaver', this.onReceive)
+  },
+  methods: {
+    onReceive (input) {
+      this.weaverKey = input
+      let weaverRef = db.ref('weavers/' + this.weaverKey)
+      setInterval(() => {
+        weaverRef.on('value', (snapshot) => {
+          this.weaverEnergy = snapshot.val().energy
+        })
+      }, 1000)
+    }
+  }
 }
 </script>
 

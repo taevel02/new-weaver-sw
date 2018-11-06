@@ -4,15 +4,15 @@
       <div slot="header" class="clearfix">
         <span class="title">Information</span>
       </div>
-      <div class="text-container item">
+      <div class="text-container">
         <div class="location">
           <div class="subtitle">Location : </div>
-          <div class="name">The Prcific ocean</div>
+          <div class="item">{{ weaverLocation }}</div>
         </div>
         <div class="space"></div>
         <div class="Coordinate">
           <div class="subtitle">Coordinate : </div>
-          <div class="name">0 N 160 W / 0 N 160 W</div>
+          <div class="item">{{ weaverCoordinates }}</div>
         </div>
       </div>
     </el-card>
@@ -20,8 +20,32 @@
 </template>
 
 <script>
+import { db } from '@/api/firebase.js'
+
 export default {
-  name: 'information'
+  name: 'information',
+  data () {
+    return {
+      weaverKey: '',
+      weaverCoordinates: '',
+      weaverLocation: '',
+    }
+  },
+  created () {
+    this.$eventBus.$on('nowWeaver', this.onReceive)
+  },
+  methods : {
+    onReceive (input) {
+      this.weaverKey = input
+      let weaverRef = db.ref('weavers/' + this.weaverKey)
+      setInterval(() => {
+        weaverRef.on('value', (snapshot) => {
+          this.weaverCoordinates = snapshot.val().coordinates
+          this.weaverLocation = snapshot.val().location
+        })
+      }, 1000)
+    }
+  }
 }
 </script>
 
@@ -38,6 +62,12 @@ export default {
 
   .space {
     margin-right: 120px;
+  }
+
+  .item {
+    margin-top: 0.5em;
+    font-size: 1.4rem;
+    font-weight: 700;
   }
 }
 </style>
