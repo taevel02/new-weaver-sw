@@ -146,6 +146,7 @@ export default {
 
       newWeaver: {
         camPose: 0,
+        compass: '',
         coordinates: '',
         energy: '',
         isCapsule: false,

@@ -2,7 +2,7 @@
   <div class="topbar">
     <el-card class="box-card">
       <div class="text-container">
-        <div class="weaver-name">Name : {{ weaverName }}</div>
+        <div class="weaver-name">{{ weaverName }}</div>
         <div class="weaver-setting"><i class="el-icon-setting" @click="settingWeaverDialogEvent"></i></div>
       </div>
     </el-card>
@@ -58,20 +58,17 @@ export default {
         value: 5000,
         label: '5 sec'
       }, {
-        value: 43200000,
-        label: '12 hours'
+        value: 600000,
+        label: '10 minutes'
       }, {
-        value: 64800000,
-        label: '18 hours'
+        value: 900000,
+        label: '15 minutes'
       }, {
-        value: 86400000,
-        label: '1 day (recommand)'
+        value: 1800000,
+        label: '30 minutes (recommand)'
       }, {
-        value: 172800000,
-        label: '2 days'
-      }, {
-        value: 259200000,
-        label: '3 days'
+        value: 3600000,
+        label: '1 hour'
       }],
       weaverIsCapsuleCycle: ''
     }
@@ -138,6 +135,7 @@ export default {
 
   .weaver-name {
     flex: 1;
+    font-weight: bold;
   }
 }
 

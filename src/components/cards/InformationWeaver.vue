@@ -9,10 +9,13 @@
           <div class="subtitle">Location : </div>
           <div class="item">{{ weaverLocation }}</div>
         </div>
-        <div class="space"></div>
-        <div class="Coordinate">
+        <div class="coordinate">
           <div class="subtitle">Coordinate : </div>
           <div class="item">{{ weaverCoordinates }}</div>
+        </div>
+        <div class="compass">
+          <div class="subtitle">Compass : </div>
+          <div class="item">{{ weaverCompass }}</div>
         </div>
       </div>
     </el-card>
@@ -27,6 +30,7 @@ export default {
   data () {
     return {
       weaverKey: '',
+      weaverCompass: '',
       weaverCoordinates: '',
       weaverLocation: '',
     }
@@ -34,12 +38,13 @@ export default {
   created () {
     this.$eventBus.$on('nowWeaver', this.onReceive)
   },
-  methods : {
+  methods: {
     onReceive (input) {
       this.weaverKey = input
       let weaverRef = db.ref('weavers/' + this.weaverKey)
       setInterval(() => {
         weaverRef.on('value', (snapshot) => {
+          this.weaverCompass = snapshot.val().compass
           this.weaverCoordinates = snapshot.val().coordinates
           this.weaverLocation = snapshot.val().location
         })
@@ -58,10 +63,10 @@ export default {
 
   .text-container {
     display: flex;
-  }
 
-  .space {
-    margin-right: 120px;
+    & > div {
+      margin-right: 25px;
+    }
   }
 
   .item {

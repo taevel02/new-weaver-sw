@@ -1,16 +1,48 @@
 <template>
   <div class="location">
     <el-card class="box-card">
-      <div class="map">
-        map
-      </div>
+      <gmap-map
+        :center="center"
+        :zoom="12"
+        style="width: 1170px; height: 560px;">
+        <!-- <gmap-marker></gmap-marker> -->
+      </gmap-map>
     </el-card>
   </div>
 </template>
 
 <script>
+import { db } from '@/api/firebase.js'
+
 export default {
-  name: 'location'
+  name: 'location',
+  data () {
+    return {
+      weaverKey: '',
+      weaverCoordinates: '',
+      center: { lat: 0, lng: 0 }
+    }
+  },
+  created () {
+    this.$eventBus.$on('nowWeaver', this.onReceive)
+  },
+  methods: {
+    onReceive (input) {
+      this.weaverKey = input
+      let weaverRef = db.ref('weavers/' + this.weaverKey)
+      setInterval(() => {
+        weaverRef.on('value', (snapshot) => {
+          this.weaverCoordinates = snapshot.val().coordinates
+          this.initMap(this.weaverCoordinates)
+        })
+      }, 1000)
+    },
+    initMap (coordinate) {
+      let latlngStr = coordinate.split(',', 2)
+      this.center = { lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1]) }
+      console.log(this.center)
+    }
+  }
 }
 </script>
 
@@ -19,6 +51,6 @@ export default {
 
 .box-card {
   width: 1210px;
-  height: 480px;
+  height: 600px;
 }
 </style>

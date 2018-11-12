@@ -7,11 +7,18 @@ import ElementUI from 'element-ui';
 import locate from 'element-ui/lib/locale/lang/ko';
 import 'element-theme-chalk';
 import VueFire from 'vuefire';
+import * as VueGoogleMaps from 'vue2-google-maps';
 
 import './api/firebase';
 
-Vue.use(VueFire);
 Vue.use(ElementUI, { locate });
+Vue.use(VueFire);
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyBXFRmI5-gc1FqM5woq8idSR1JziR-iwYk',
+    libraries: 'places'
+  }
+});
 
 Vue.config.productionTip = false;
 
