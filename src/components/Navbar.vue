@@ -60,7 +60,7 @@
             v-model="newWeaver.name"
             placeholder="Please write down your Weaver name.."></el-input>
         </el-form-item>
-        <el-form-item
+        <!-- <el-form-item
           label="Energy"
           :label-width="formLabelVisible">
           <el-input
@@ -84,7 +84,7 @@
         <el-form-item label="Tools">
           <el-button @click="getGps">Get GPS</el-button>
           <el-button @click="getEnergy">Get Energy</el-button>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="addWeaverDialog = false">Cancel</el-button>
@@ -109,17 +109,6 @@
         <el-button @click="removeWeaverDialog = false">Close</el-button>
       </span>
     </el-dialog>
-
-    <!-- <el-dialog
-      title="Setting Weaver"
-      :visible.sync="settingWeaverDialog"
-      width="40%">
-      <span>Create 'Setting Weaver Form'</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="settingWeaverDialog = false">Cancel</el-button>
-        <el-button type="primary" @click="settingWeaverHandler">Confirm</el-button>
-      </span>
-    </el-dialog> -->
   </div>
 </template>
 
@@ -142,7 +131,6 @@ export default {
     return {
       addWeaverDialog: false,
       removeWeaverDialog: false,
-      // settingWeaverDialog: false,
 
       newWeaver: {
         camPose: 0,
@@ -173,16 +161,10 @@ export default {
       this.nowWeaver = input
     },
     addWeaverHandler () {
-      if (this.newWeaver.coordinates == '' ||
-      this.newWeaver.energy == '' ||
-      this.newWeaver.location == '' ||
-      this.newWeaver.name == '') {
+      if (this.newWeaver.name == '') {
         toastr.warning(`There are items you didn't enter`)
       } else {
         this.$firebaseRefs.weaversRef.push(this.newWeaver)
-        this.newWeaver.coordinates = ''
-        this.newWeaver.energy = ''
-        this.newWeaver.location = ''
         this.newWeaver.name = ''
         this.addWeaverDialog = false
         toastr.success('New Weaver added successfully.')
@@ -198,15 +180,6 @@ export default {
       }).catch(() => {
         toastr.info('Remove canceled.')
       })
-    },
-    // settingWeaverHandler () {
-    //   toastr.info('test')
-    // },
-    getGps () {
-      toastr.warning('만드는 중이에요')
-    },
-    getEnergy () {
-      toastr.warning('만드는 중이에요')
     }
   }
 }

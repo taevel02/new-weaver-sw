@@ -58,21 +58,18 @@ export default {
 @import '../../assets/scss/card.scss';
 
 .box-card {
-  width: 720px;
+  width: 760px;
   margin-right: 18px;
 
   .text-container {
     display: flex;
-
-    & > div {
-      margin-right: 25px;
-    }
   }
 
   .item {
     margin-top: 0.5em;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 700;
+    width: 70%;
   }
 }
 </style>

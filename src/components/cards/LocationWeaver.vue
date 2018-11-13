@@ -3,9 +3,10 @@
     <el-card class="box-card">
       <gmap-map
         :center="center"
-        :zoom="12"
+        :zoom="15"
         style="width: 1170px; height: 560px;">
-        <!-- <gmap-marker></gmap-marker> -->
+        <gmap-marker
+          :position="center"></gmap-marker>
       </gmap-map>
     </el-card>
   </div>
@@ -20,7 +21,7 @@ export default {
     return {
       weaverKey: '',
       weaverCoordinates: '',
-      center: { lat: 0, lng: 0 }
+      center: { lat: null, lng: null }
     }
   },
   created () {
@@ -40,7 +41,6 @@ export default {
     initMap (coordinate) {
       let latlngStr = coordinate.split(',', 2)
       this.center = { lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1]) }
-      console.log(this.center)
     }
   }
 }
