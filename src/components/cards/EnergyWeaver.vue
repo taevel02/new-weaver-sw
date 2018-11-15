@@ -33,7 +33,7 @@ export default {
       let weaverRef = db.ref('weavers/' + this.weaverKey)
       setInterval(() => {
         weaverRef.on('value', (snapshot) => {
-          this.weaverEnergy = snapshot.val().energy
+          this.weaverEnergy = Math.floor(snapshot.val().energy)
         })
       }, 1000)
     }

@@ -1,8 +1,11 @@
 <template>
   <div class="dashboard">
+    <div class="illust">
+      <img src="@/assets/images/illust.png">
+    </div>
     <el-row class="tac" :gutter="20">
       <el-col class="nav" :span="4">
-        <v-navbar></v-navbar>
+        <v-sidebar></v-sidebar>
       </el-col>
       <el-col class="board" :span="20">
         <div class="container">
@@ -23,7 +26,7 @@
 </template>
 
 <script>
-import VNavbar from '@/components/Navbar'
+import VSidebar from '@/components/Sidebar'
 import VTopbar from '@/components/cards/Topbar'
 import InformationWeaver from '@/components/cards/InformationWeaver'
 import EnergyWeaver from '@/components/cards/EnergyWeaver'
@@ -32,7 +35,7 @@ import LocationWeaver from '@/components/cards/LocationWeaver'
 export default {
   name: 'dashboard',
   components: {
-    VNavbar,
+    VSidebar,
     VTopbar,
     InformationWeaver,
     EnergyWeaver,
@@ -45,6 +48,17 @@ export default {
 .dashboard {
   display: flex;
   flex-direction: row;
+}
+
+.illust {
+  z-index: -1;
+
+  & > img {
+    width: 500px;
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+  }
 }
 
 .board {

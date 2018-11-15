@@ -24,6 +24,7 @@ export default {
 <style>
 #app {
   font-family: 'Spoqa Han Sans';
+  user-select: none;
   /* font-size: 1rem; */
 }
 </style>
