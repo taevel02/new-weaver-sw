@@ -10,7 +10,7 @@ Weaver was made to restore the marine ecosystem by suppressing the phenomenon of
 
 ## What is the Weaver?
 
-Weaver is a robot that helps restore the marine ecosystem by suppressing these corals, and cleans floating garbage on the ocean to have a better effect. Using two fans, the robot can navigate through shallow coral reefs, and use its camera to see in real time what's going on in the ocean. You can see where it is on the map. The robot's structure also helps to clean up the waste from the sea. You can collect the robot later and dispose of the garbage. But we missed the most important function. And that's what this robot should do to get rid of the coral reef bleaching. This is done through a capsule.
+Weaver is a robot that helps restore the marine ecosystem by suppressing these corals, and cleans floating garbage on the ocean to have a better effect. Using two fans, the robot can navigate above shallow coral reefs, and use its camera to see in real time what's going on in the ocean. You can see where it is on the map. The robot's structure also helps to clean up the waste from the sea. You can collect the robot later and dispose of the garbage. But we missed the most important function. And that's what this robot should do to get rid of the coral reef bleaching. This is done through a capsule.
 
 The shells of the capsule is made of poly vinyl alcohol film that dissolves in water. And the inner of the capsule contains the solid carbon dioxide, the 'dry ice'. When the capsule drops down below the water level of the coral reef, the capsules melt, causing chemical reactions to carbon dioxide and coral reefs, reducing and inhibiting the coral reef bleaching.
 
