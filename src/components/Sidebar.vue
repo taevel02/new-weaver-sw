@@ -10,7 +10,7 @@
           active-text-color="#909399">
           <div class="sidebar_name">
             <img
-              src=""
+              src="@/assets/images/logo.png"
               @click="goHome"
               class="sidebar_logo">
           </div>
@@ -193,9 +193,14 @@ export default {
 .side-navbar {
   height: 100vh;
 
+  .sidebar_name {
+    padding: 20px 10px;
+    margin-left: 10px;
+  }
+
   .sidebar_logo {
     cursor: pointer;
-    height: 80px;
+    height: 35px;
   }
 }
 

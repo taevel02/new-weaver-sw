@@ -16,6 +16,10 @@
         <el-switch v-model="weaverIsStatus"></el-switch>
       </div>
       <div class="menu">
+        <span>Capsule Drop Cycle Status : &nbsp;</span>
+        <el-switch v-model="weaverIsStatusCycle"></el-switch>
+      </div>
+      <div class="menu">
         <span>Capsule Drop : &nbsp;</span>
         <el-button size="small" @click="weaverIsCapsuleHandler">Drop a Capsule</el-button>
       </div>
@@ -28,8 +32,9 @@
             :label="time.label"
             :value="time.value">
           </el-option>
-        </el-select>&nbsp;
+        </el-select>&nbsp;&nbsp;
         <el-button size="small" @click="weaverIsCapsuleCycleHandler">Set</el-button>
+        <el-button size="small" @click="weaverIsCapsuleCycleStopHandler">Stop</el-button>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="settingWeaverDialog = false">Close</el-button>
@@ -43,6 +48,9 @@ import toastr from 'toastr'
 import 'toastr/build/toastr.css'
 import { db } from '@/api/firebase.js'
 
+let capsulecycle, check
+let capsulecycleCheck = 0
+
 export default {
   name: 'topbar',
   data () {
@@ -52,7 +60,9 @@ export default {
       weaverKey: '',
       weaverName: '',
       weaverIsStatus: false,
-      weaverIsCapsule: false,
+      weaverIsStatusCycle: false,
+      weaverIsCapsule: 0,
+      weaverIsCapsuleCycle: '',
 
       times: [{
         value: 5000,
@@ -69,8 +79,7 @@ export default {
       }, {
         value: 3600000,
         label: '1 hour'
-      }],
-      weaverIsCapsuleCycle: ''
+      }]
     }
   },
   created () {
@@ -83,7 +92,8 @@ export default {
       weaverRef.on('value', (snapshot) => {
         this.weaverName = snapshot.val().name
         this.weaverIsStatus = snapshot.val().isStatus
-        this.weaverIsCapsule = snapshot.val().issCapsule
+        this.weaverIsStatusCycle = snapshot.val().isStatusCycle
+        this.weaverIsCapsule = snapshot.val().isCapsule
       })
     },
     settingWeaverDialogEvent () {
@@ -96,27 +106,53 @@ export default {
     weaverIsCapsuleHandler () {
       let capsuleDB = db.ref('weavers/' + this.weaverKey + '/isCapsule')
       if (this.weaverIsStatus) {
-        capsuleDB.set(true)
+        capsuleDB.set(1)
         toastr.success('Capsule dropped successfully.')
       } else {
         toastr.error('Check the Capsule Drop Status..')
       }
       setTimeout(() => {
-        capsuleDB.set(false)
+        capsuleDB.set(0)
       }, 1500)
     },
     weaverIsCapsuleCycleHandler () {
-      if (this.weaverIsStatus) {
-        db.ref('weavers/' + this.weaverKey + '/isCapsuleCycle').set(this.weaverIsCapsuleCycle)
-        toastr.success('The Capsule Drop Cycle has been set successfully.')
+      let capsuleDB = db.ref('weavers/' + this.weaverKey + '/isCapsule')
+      if (this.weaverIsStatusCycle) {
+        if (this.weaverIsCapsuleCycle) {
+          capsulecycle = setInterval(() => {
+            capsuleDB.set(1)
+            check = setTimeout(() => {
+              capsuleDB.set(0)
+            }, 1500)
+          }, this.weaverIsCapsuleCycle + 1500)
+          toastr.success('The Capsule Drop Cycle has been set successfully.')
+          capsulecycleCheck = 1
+        } else {
+          toastr.error('Select cycle..')
+          capsulecycleCheck = 0
+        }
       } else {
-        toastr.error('Check the Capsule Drop Status..')
+        toastr.error('Check the Capsule Drop Cycle Status..')
+        capsulecycleCheck = 0
+      }
+    },
+    weaverIsCapsuleCycleStopHandler () {
+      if (capsulecycleCheck === 1) {
+        clearInterval(capsulecycle)
+        clearTimeout(check)
+        // db.ref('weavers/' + this.weaverKey + '/isStatusCycle').set(false)
+        db.ref('weavers/' + this.weaverKey + '/isCapsule').set(0)
+        toastr.success('Capsule Drop Cycle is stop.')
+        capsulecycleCheck = 0
       }
     }
   },
   watch: {
     weaverIsStatus () {
       db.ref('weavers/' + this.weaverKey + '/isStatus').set(this.weaverIsStatus)
+    },
+    weaverIsStatusCycle () {
+      db.ref('weavers/' + this.weaverKey + '/isStatusCycle').set(this.weaverIsStatusCycle)
     }
   }
 }

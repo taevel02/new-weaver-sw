@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="navbar_name">
       <img
-        src=""
+        src="@/assets/images/logo.png"
         @click="goHome"
         class="navbar_logo">
     </div>
@@ -33,7 +33,7 @@ export default {
 
 .navbar_logo {
   cursor: pointer;
-  height: 80px;
+  height: 40px;
 }
 
 .navbar_menu {
