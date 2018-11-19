@@ -1,4 +1,4 @@
-# Weaver 
+# Weaver
 
 ## Overview
 
@@ -6,7 +6,7 @@ Do you know Pixar's animation, Finding Nemo? The background of this animation is
 
 ## Purpose
 
-Weaver was made to restore the ocean ecosystem by suppressing the phenomenon of coral reef bleaching.
+Weaver was made to restore the marine ecosystem by suppressing the phenomenon of coral reef bleaching.
 
 ## What is the Weaver?
 
@@ -20,4 +20,4 @@ Robot Weaver with these features, trys to restore the marine ecosystem by suppre
 
 The coral reef bleaching phenomenon threatens the marine ecosystem, and the threat to the marine ecosystem is a human crisis. Can't we undo the environmental changes that we caused with our hands?
 
-Weaver was made to restore the ocean ecosystem by suppressing the phenomenon of coral reef bleaching.
+Weaver was made to restore the marine ecosystem by suppressing the phenomenon of coral reef bleaching.
