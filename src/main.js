@@ -15,7 +15,7 @@ Vue.use(ElementUI, { locate });
 Vue.use(VueFire);
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyBXFRmI5-gc1FqM5woq8idSR1JziR-iwYk',
+    key: 'AIzaSyC6hf2LMy0LhCUDWu4muiN3WBvT53-ER7o',
     libraries: 'places',
     language: 'en'
   }
